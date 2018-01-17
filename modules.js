@@ -6,8 +6,8 @@ const myModules = [
     ['_', 'lodash']
 ]
 
-myModules.forEach((val) => {
-    container.register(val[0], () => {
+myModules.forEach(function(val) {
+    container.register(val[0], function() {
         return require(val[1]);
     })
 });
@@ -15,7 +15,7 @@ myModules.forEach((val) => {
 container.load(path.join(__dirname, '/controllers'));
 container.load(path.join(__dirname, '/helpers'));
 
-container.register('container', () => {
+container.register('container', function() {
     return container;
 });
 

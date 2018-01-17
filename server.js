@@ -4,14 +4,14 @@ const http = require('http');
 const ejs = require('ejs');
 const container = require('./modules');
 
-container.resolve((users) => {
+container.resolve(function(users) {
 
     const app = SetupExpress();
 
     function SetupExpress() {
         const app = express();
         const server = http.createServer(app);
-        server.listen(300, () => {
+        server.listen(3000, () => {
             console.log('Listening on port 3000');
         });
         ConfigureExpress(app);
