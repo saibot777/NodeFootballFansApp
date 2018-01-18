@@ -15,7 +15,7 @@ const container = require('./modules');
 container.resolve(function(users) {
 
     mongoose.Prmise = global.Promise;
-    mongoose.connect('mongodb://localhost/footballFans', { useMongoClient: true });
+    mongoose.connect('mongodb://admin:admin@ds123146.mlab.com:23146/football-fans');
 
     const app = SetupExpress();
 
