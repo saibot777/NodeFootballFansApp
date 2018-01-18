@@ -7,6 +7,7 @@ const flash = require('flash');
 const validator = require('express-validator');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const passport = require('passport');
 const MongoStore = require('connect-mongo')(session);
 const container = require('./modules');
 
@@ -49,6 +50,8 @@ container.resolve(function(users) {
         }));
 
         app.use(flash());
+        app.use(passport.initialize());
+        app.use(passport.session());
     }
 
 });
