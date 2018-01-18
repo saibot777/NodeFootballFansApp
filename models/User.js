@@ -4,7 +4,11 @@ const userSchema = mongoose.Schema({
     fullname: { type: String, unique: true, default: '' },
     email: { type: String, unique: true },
     password: { type: String, default: '' },
-    userImage: { type: String, unique: 'default.png' }
+    userImage: { type: String, unique: 'default.png' },
+    facebook: { type: String, default: '' },
+    fbTokens: Array,
+    google: { type: String, default: '' },
+    googleTokens: Array
 });
 
 module.exports = mongoose.model('User', userSchema);
