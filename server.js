@@ -1,21 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const http = require('http');
 const ejs = require('ejs');
-const mongoose = require('mongoose');
-const flash = require('flash');
-const validator = require('express-validator');
+const http = require('http');
 const cookieParser = require('cookie-parser');
+const validator = require('express-validator');
 const session = require('express-session');
-const passport = require('passport');
 const MongoStore = require('connect-mongo')(session);
-const container = require('./modules');
+const mongoose = require('mongoose');
+const flash = require('connect-flash');
+const passport = require('passport');
+const morgan = require('morgan');
 
 
-container.resolve(function(users) {
+const container = require('./container');
+
+
+container.resolve(function(users, _) {
 
     mongoose.Prmise = global.Promise;
-    mongoose.connect('mongodb://admin:admin@ds123146.mlab.com:23146/football-fans');
+    mongoose.connect('mongodb://admin:admin@ds123146.mlab.com:23146/football-fans', {useMongoClient: true});
 
     const app = SetupExpress();
 
@@ -37,6 +40,18 @@ container.resolve(function(users) {
     function ConfigureExpress(app) {
         require('./passport/passport-local');
 
+        // CORS
+        // app.use((req, res, next) => {
+        //     res.header('Access-Control-Allow-Origin', '*');
+        //     res.header('Access-Control-Allow-Headers', '*');
+        //     if (req.method === 'OPTIONS') {
+        //         res.header('Access-Control-Allow-Methods', 'GET','PUT', 'POST', 'PATCH', 'DELETE')
+        //         return res.status(200).json({});
+        //     }
+        //     next();
+        // });
+
+        app.use(morgan('dev'));
         app.use(express.static('public'));
         app.use(cookieParser());
         app.set('view engine', 'ejs');
@@ -54,6 +69,8 @@ container.resolve(function(users) {
         app.use(flash());
         app.use(passport.initialize());
         app.use(passport.session());
+
+        
     }
 
 });
