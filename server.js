@@ -39,17 +39,18 @@ container.resolve(function(users, _) {
 
     function ConfigureExpress(app) {
         require('./passport/passport-local');
+        require('./passport/passport-facebook');
 
-        // CORS
-        // app.use((req, res, next) => {
-        //     res.header('Access-Control-Allow-Origin', '*');
-        //     res.header('Access-Control-Allow-Headers', '*');
-        //     if (req.method === 'OPTIONS') {
-        //         res.header('Access-Control-Allow-Methods', 'GET','PUT', 'POST', 'PATCH', 'DELETE')
-        //         return res.status(200).json({});
-        //     }
-        //     next();
-        // });
+        CORS
+        app.use((req, res, next) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', '*');
+            if (req.method === 'OPTIONS') {
+                res.header('Access-Control-Allow-Methods', 'GET','PUT', 'POST', 'PATCH', 'DELETE')
+                return res.status(200).json({});
+            }
+            next();
+        });
 
         app.use(morgan('dev'));
         app.use(express.static('public'));
