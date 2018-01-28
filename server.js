@@ -38,8 +38,11 @@ container.resolve(function(users, _) {
     }
 
     function ConfigureExpress(app) {
+
+        // PASSPORT
         require('./passport/passport-local');
         require('./passport/passport-facebook');
+        require('./passport/passport-google');
 
         // CORS
         app.use((req, res, next) => {
